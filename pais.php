@@ -8,10 +8,12 @@ function _get_filhos()
     $retorno = "";
     if (count($filhos) == 0) {
         echo "<p style='color: red;'><b>Ainda não possui filhos vinculados à você</b></p>";
-    } 
+    }
     return $filhos;
 }
-function _get_ver_filho(){
+
+function _get_ver_filho()
+{
     global $wpdb;
     $filhos = $wpdb->get_results("SELECT wp_alunos.*,wp_users.display_name FROM wp_alunos join wp_users on wp_users.id = wp_alunos.escola_id where pais_id = " . um_profile_id() . ";");
     $retorno = "";
@@ -57,6 +59,7 @@ function vincula_aluno()
 
     }
 }
+
 //add_shortcode( 'form_turma_submit','post_turma');
 
 add_action("admin_post_vincula_aluno", 'vincula_aluno');
@@ -73,35 +76,36 @@ function render_form_pais_declare_aluno()
         ?>
         <?php if ($shouldToggle) : ?>
             <div style="text-align: left;">
-                <h3 class='my_toggle' align='left'>Vincule outro filho a você</h3>
-            <?php endif; ?>
-            <form action='<?php echo $url ?>' method='POST' <?php if ($shouldToggle) {
-                                                                        echo "class='vc_col-12 my_toggle'";
-                                                                    } else {
-                                                                        echo "class='vc_col-12'";
-                                                                    } ?> <?php if ($shouldToggle) {
-                                                                                        echo "style='display: none; text-align: left;'";
-                                                                                    } else {
-                                                                                        echo "style='text-align: left;'";
-                                                                                    } ?> enctype="multipart/form-data">
-                <?php if (!$shouldToggle) : ?> <h3>Vincule seu filho à você</h3> <?php endif; ?>
-                <p>Digite o código do seu filho para fazer o vínculo</p>
-                <label for="cod_escola">Código da escola</label>
-                <p style='text-align: left;'><input id="cod_escola" name="escola_id" /></p>
-                <br>
-                <label for="cod_aluno">Código do Aluno</label>
-                <p style='text-align:left;'><input id="cod_aluno" name="codigo" /></p>
+            <h3 class='my_toggle' align='left'>Vincule outro filho a você</h3>
+        <?php endif; ?>
+        <form action='<?php echo $url ?>' method='POST' <?php if ($shouldToggle) {
+            echo "class='vc_col-12 my_toggle'";
+        } else {
+            echo "class='vc_col-12'";
+        } ?> <?php if ($shouldToggle) {
+            echo "style='display: none; text-align: left;'";
+        } else {
+            echo "style='text-align: left;'";
+        } ?> enctype="multipart/form-data">
+            <?php if (!$shouldToggle) : ?> <h3>Vincule seu filho à você</h3> <?php endif; ?>
+            <p>Digite o código do seu filho para fazer o vínculo</p>
+            <label for="cod_escola">Código da escola</label>
+            <p style='text-align: left;'><input id="cod_escola" name="escola_id"/></p>
+            <br>
+            <label for="cod_aluno">Código do Aluno</label>
+            <p style='text-align:left;'><input id="cod_aluno" name="codigo"/></p>
 
-                <p style='text-align: left; display: none;'><input type='hidden' name='action' value='vincula_aluno' \></p>
+            <p style='text-align: left; display: none;'><input type='hidden' name='action' value='vincula_aluno' \></p>
 
-                <p style='text-align: left;'><input name='submit' type='submit' value='Criar vinculo' \></p>
-            </form>
-            <?php if ($shouldToggle) : ?>
+            <p style='text-align: left;'><input name='submit' type='submit' value='Criar vinculo' \></p>
+        </form>
+        <?php if ($shouldToggle) : ?>
             </div>
         <?php endif; ?>
-        
-<?php
+
+        <?php
     }
     _get_ver_filho();
 }
+
 add_shortcode('form_pais_vincula_aluno', 'render_form_pais_declare_aluno');

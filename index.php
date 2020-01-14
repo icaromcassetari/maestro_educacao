@@ -1,11 +1,11 @@
 <?php
-/**
- * Plugin Name: Maestro Educação
- * Author: Icaro Cassetari
- * Author URI:
+/*
+Plugin Name: Maestro Educação
+Author: Icaro Cassetari
+Author URI:
 Description: Plugin feito para MaestroEducação, desenvolvido para a venda de livros aos pais.
- * Version: 2.1
- */
+Version: 2.1
+*/
 defined( 'ABSPATH' ) || exit;
 
 function myplugin_activate() {
