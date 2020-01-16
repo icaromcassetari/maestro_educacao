@@ -4,7 +4,7 @@ function render_pedidos()
     global $wpdb;
     $url = esc_url(admin_url('admin-post.php'));
     $pedidos = $wpdb->get_results("SELECT wp_pedidos.id FROM wp_pedidos join wp_itens_pedidos on wp_pedidos.id = wp_itens_pedidos.pedido_id where escola_id = " . um_profile_id() . " group by id;");
-
+    $itens_pedidos;
     if (isset($_GET['pedido'])) {
         $wpdb->show_errors();
         $itens_pedidos = $wpdb->get_results("SELECT wp_alunos.id, wp_alunos.nome,wp_alunos.pais_id, wp_itens_pedidos.pai_comprou, 
@@ -216,7 +216,7 @@ function array2csv(array &$array)
     fclose($df);
     return ob_get_clean();
 }
-
+/*
 function download_send_headers($filename)
 {
     // disable caching
@@ -239,7 +239,7 @@ download_send_headers("data_export_" . date("Y-m-d") . ".csv");
 echo array2csv($array);
 die();
 
-
+*/
 function _get_turma_all($is_shop_modal = false)
 {
     global $wpdb;
@@ -288,10 +288,10 @@ function post_turma()
         }
         $_SESSION['mensagens'][] = array('type' => 'success', 'message' => 'Turmas cadastradas');
 
-        /*$turmas = $wpdb->get_results( "SELECT * FROM wp_turmas where user_id = ". um_profile_id() .";" );
-    foreach ( $turmas as $turma ) {
-        echo $turma->nome. '<br>';
-    }*/
+    //$turmas = $wpdb->get_results( "SELECT * FROM wp_turmas where user_id = ". um_profile_id() .";" );
+    //foreach ( $turmas as $turma ) {
+    //echo $turma->nome. '<br>';
+    //}
         wp_redirect('/user');
     } else {
 
